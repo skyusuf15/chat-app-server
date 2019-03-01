@@ -37,6 +37,5 @@ io.on('connection', socket => {
             const receiverSocketId = mobileSockets[receiver.id];
             socket.to(receiverSocketId).emit('incomingMessage', message);
         });
-
     });
 });

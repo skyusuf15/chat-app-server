@@ -1,8 +1,8 @@
-const server = require('http').createServer.listen(3000);
+const server = require('http').createServer((req,res) => res.writeHead(200)).listen(3001);
 const conn = require('./db').conn;
 const io = require('socket.io')(server);
 const { User, Conversation, Message } = require('./db').models;
-conn.sync({ logging: false, force: true });
+conn.sync({ logging: false });
 const mobileSockets = {};
 
 io.on('connection', socket => {
@@ -12,7 +12,7 @@ io.on('connection', socket => {
         Promise.all([
             User.findOrCreate({
                 where: {
-                    name,
+                    name, 
                     password
                 }
             }),
